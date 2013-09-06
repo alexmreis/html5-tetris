@@ -5,6 +5,8 @@ class Tetris.Game
     @inputQueue = []
     @scene = []
     @canvas = $('canvas')[0]
+    $(@canvas).attr('width', $(window).width())
+    $(@canvas).attr('height', $(window).height())
 
   mainLoop: =>
     @processInput()
@@ -24,5 +26,5 @@ class Tetris.Game
       obj.draw(context)
 
   startLoop: ->
-    @scene.push(new Tetris.Square(x: 0, y:0))
+    @scene.push(new Tetris.Square(x: @canvas.width / 2, y:0))
     window.setInterval @mainLoop, 17
