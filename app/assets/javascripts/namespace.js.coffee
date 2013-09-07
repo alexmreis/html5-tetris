@@ -1,1 +1,3 @@
-window.Tetris = {}
+window.Tetris = {
+  Game: {}
+}
