@@ -3,5 +3,6 @@
 #= require_tree ./tetris
 #
 $ ->
-  new Tetris.GameEngine().startLoop()
+  window.Tetris.engine = new Tetris.GameEngine()
+  Tetris.engine.startLoop()
 

@@ -14,25 +14,26 @@ class Tetris.GameEngine
     @renderFrame()
 
   addToInputQueue: (evt) =>
-    @inputQueue.push(evt.which)
+    @inputQueue.push(@mapInput(evt.which))
 
   processInput: =>
     return unless  @inputQueue.length > 0
-    console.log "Pending input: ", @inputQueue.length
     for key in @inputQueue
-      if @mapInput(key)
+      if key
         for obj in @scene
-          obj.handleInput(@mapInput(key))
+          obj.handleInput(key)
     @inputQueue = []
 
   mapInput: (keyCode) =>
-    console.log "Got keycode #{keyCode}"
     switch keyCode
       when 37 then "left"
       when 39 then "right"
       when 32, 49, 38 then "rotate"
       when 40 then "down"
       else null 
+
+  enqueueInput: (move) ->
+    @inputQueue.push(move)
 
   executeActions: ->
     for obj in @scene
