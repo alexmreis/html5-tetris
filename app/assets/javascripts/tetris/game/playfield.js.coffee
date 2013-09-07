@@ -1,7 +1,7 @@
 class Tetris.Game.Playfield
   @WIDTH = 10
   @DEPTH = 22
-  @GRID_SQUARE = 25
+  @GRID_SQUARE = 15 
 
   rows: []
 

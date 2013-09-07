@@ -22,15 +22,15 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
-        <div style="border: 2px solid black; margin: 0px auto; width: 250px; margin-bottom: -5px; height: 525px;">
+        <div style="border: 2px solid black; margin: 0px auto; width: 150px; height: 315px;">
           <canvas id="game-canvas">></canvas>
         </div>
 
         <div style="position: absolute; top: 20px; right: 20px;">
-          <button onclick="Tetris.engine.enqueueInput('left')"> &lt; </button>
-          <button onclick="Tetris.engine.enqueueInput('right')"> &gt; </button>
-          <button onclick="Tetris.engine.enqueueInput('rotate')"> ^ </button>
-          <button onclick="Tetris.engine.enqueueInput('down')"> v </button>
+          <button onclick="Tetris.engine.enqueueInput('left')"> &larr; </button>
+          <button onclick="Tetris.engine.enqueueInput('right')"> &rarr; </button>
+          <button onclick="Tetris.engine.enqueueInput('rotate')"> &uarr; </button>
+          <button onclick="Tetris.engine.enqueueInput('down')"> &darr; </button>
         </div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>

@@ -1,5 +1,5 @@
 class Tetris.Square
-  @SIZE: 23
+  @SIZE: 13
   @STROKE: 1
   @draw: (context, x, y, type) ->
     return unless type
