@@ -18,15 +18,13 @@ class Tetris.Game.Playfield
   collides: (x,y) ->
     nextRow = Math.min(@rows.length - 1, y + 1)
     return true if nextRow >= Tetris.Game.Playfield.DEPTH - 1
-    console.log "Rows: ", @rows, nextRow
     @rows[nextRow][x] != 0
 
   land: (tetromino) ->
-    console.log "Land the bitch", tetromino
     shape = tetromino.shape
     for y in [0..shape.length - 1]
       for x in [0..shape[y].length - 1]
-        @rows[tetromino.y + y][ tetromino.x + x] = shape[y][x]
+        @rows[tetromino.y + y][ tetromino.x + x] = shape[y][x] unless shape[y][x] == 0
 
     @removeCompletedLines()
 
@@ -37,13 +35,17 @@ class Tetris.Game.Playfield
 
   removeCompletedLines: ->
     @completed = @completedLines()
-    @rows = _.difference(@rows, @completed)
-    for i in [0..@completed.length]
+    console.log "Completed: #{@completed}"
+    rows = _.difference(@rows, @completed)
+    console.log 'Rows:', rows.length, @rows.length
+    return if rows.length == @rows.length
+    for i in [1..@rows.length - rows.length]
       row = []
       for j in [1..Tetris.Game.Playfield.WIDTH]
         row.push(0)
-      #Add as many empty rows as we removed to the top
-      @rows.unshift(row)
+      ##Add as many empty rows as we removed to the top
+      rows.unshift(row)
+    @rows = rows
     @lastCompletedCount = @completed.length
 
   draw: (context) ->

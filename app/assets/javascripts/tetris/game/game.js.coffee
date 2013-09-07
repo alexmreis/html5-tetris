@@ -21,7 +21,6 @@ class Tetris.Game.Game
     return unless @tetromino
     for y in [0..@tetromino.shape.length - 1]
       for x in [0..@tetromino.shape[y].length - 1]
-        console.log "Checking for collisions", x, y, @tetromino.shape[y]
         if @tetromino.shape[y][x] != 0 and @playfield.collides(@tetromino.x + x, @tetromino.y + y)
           @playfield.land(@tetromino)
           @points += Math.pow(100, @playfield.lastCompletedCount)
