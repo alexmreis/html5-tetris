@@ -19,10 +19,11 @@ class Tetris.GameEngine
   processInput: =>
     return unless  @inputQueue.length > 0
     console.log "Pending input: ", @inputQueue.length
-    key = @inputQueue.shift()
-    if @mapInput(key)
-      for obj in @scene
-        obj.handleInput(@mapInput(key))
+    for key in @inputQueue
+      if @mapInput(key)
+        for obj in @scene
+          obj.handleInput(@mapInput(key))
+    @inputQueue = []
 
   mapInput: (keyCode) =>
     console.log "Got keycode #{keyCode}"
