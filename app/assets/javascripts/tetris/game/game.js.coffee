@@ -1,6 +1,7 @@
 class Tetris.Game.Game
   rate: 1000
-  points: 0
+  score: 0
+  over: false
 
   constructor: ->
     @playfield = new Tetris.Game.Playfield()
@@ -13,7 +14,7 @@ class Tetris.Game.Game
     return unless new Date().getTime()  - @lastMove > @rate
 
     @checkCollisions()
-    @tetromino.fall()
+    @tetromino.fall() if @tetromino
     @lastMove = new Date().getTime()
 
   checkCollisions: =>
@@ -23,7 +24,7 @@ class Tetris.Game.Game
         if @tetromino.shape[y][x] != 0 and @playfield.collides(@tetromino.x + x, @tetromino.y + y)
           @playfield.land(@tetromino)
           if @playfield.lastCompletedCount
-            @points += Math.pow(2, @playfield.lastCompletedCount) * 100
+            @score += Math.pow(2, @playfield.lastCompletedCount) * 100
           @tetromino = null
           return
 
@@ -56,11 +57,15 @@ class Tetris.Game.Game
 
   #Engine interface
   executeActions: ->
+    return if @over
     @dropTetrominos()
+    @over = @playfield.isFull()
+    if @over
+      alert("Game over! Score: #{@score}")
 
   #TODO: Draw score, next piece, decoration and stuff
   draw: (context) ->
     context.clearRect(0,0,$(window).width(), $(window).height())
     @playfield.draw(context)
-    @tetromino.draw(context)
+    @tetromino.draw(context) if @tetromino
 

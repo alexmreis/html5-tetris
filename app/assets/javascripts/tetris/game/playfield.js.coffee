@@ -50,6 +50,10 @@ class Tetris.Game.Playfield
       rows.unshift(row)
     @rows = rows
 
+  isFull: ->
+    _.any @rows[0], (value) ->
+      value != 0
+
   draw: (context) ->
     #Hide first 2 rows as per tetris specs
     for y in [2..Tetris.Game.Playfield.DEPTH - 1]
