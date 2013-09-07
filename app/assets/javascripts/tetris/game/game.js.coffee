@@ -23,7 +23,8 @@ class Tetris.Game.Game
       for x in [0..@tetromino.shape[y].length - 1]
         if @tetromino.shape[y][x] != 0 and @playfield.collides(@tetromino.x + x, @tetromino.y + y)
           @playfield.land(@tetromino)
-          @points += Math.pow(100, @playfield.lastCompletedCount)
+          if @playfield.lastCompletedCount
+            @points += Math.pow(2, @playfield.lastCompletedCount) * 100
           @tetromino = null
           return
 

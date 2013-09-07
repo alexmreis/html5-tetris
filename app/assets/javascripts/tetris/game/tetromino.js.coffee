@@ -25,7 +25,7 @@ class Tetris.Game.Tetromino
         [['J', 0 , 0 ],
          ['J','J','J']]
       when 'L'
-        [['L', 0 , 0 ],
+        [[ 0 , 0 ,'L' ],
          ['L','L','L']]
       else
         []
@@ -53,17 +53,23 @@ class Tetris.Game.Tetromino
 
   fall: ->
     @y += 1
+    #Math.min(Tetris.Game.Playfield.HEIGHT - @height(), @y - 1)
 
   rotate: ->
     @shape = math.transpose(math.matrix(@shape)).toArray()
     @shape = _.map @shape, (row) ->
      row.reverse()
+    @y = Math.min(Tetris.Game.Playfield.DEPTH - @height(), @y)
+    @y = Math.max(0, @y)
+    @x = Math.min(Tetris.Game.Playfield.WIDTH - @width(), @x)
+    @x = Math.max(0, @x)
+    console.log "Position after rotate: ", @x, @y
 
   moveLeft: ->
     @x = Math.max(0, @x - 1)
 
   moveRight: ->
-    @x = Math.min(Tetris.Game.Playfield.WIDTH - 1, @x + 1)
+    @x = Math.min(Tetris.Game.Playfield.WIDTH - @width(), @x + 1)
 
   draw: (context) ->
     for squareY in [0..@shape.length - 1]

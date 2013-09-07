@@ -4,8 +4,8 @@ class Tetris.GameEngine
     @inputQueue = []
     @scene = []
     @canvas = $('canvas')[0]
-    $(@canvas).attr('width', $(window).width())
-    $(@canvas).attr('height', $(window).height())
+    $(@canvas).attr('width', '250')
+    $(@canvas).attr('height','525')
     $(window).on('keydown', @addToInputQueue)
 
   mainLoop: =>
