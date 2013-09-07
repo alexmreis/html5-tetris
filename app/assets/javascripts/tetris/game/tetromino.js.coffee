@@ -52,7 +52,7 @@ class Tetris.Game.Tetromino
     @shape.length
 
   fall: ->
-    @y += 1
+    @y = Math.min(Tetris.Game.Playfield.DEPTH - 1 - @height(), @y + 1)
     #Math.min(Tetris.Game.Playfield.HEIGHT - @height(), @y - 1)
 
   rotate: ->

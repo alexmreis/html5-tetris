@@ -10,11 +10,10 @@ class Tetris.Game.Game
     @tetromino ||= Tetris.Game.Tetromino.buildNext()
     @lastMove ||= new Date().getTime()
 
-    @checkCollisions()
     return unless new Date().getTime()  - @lastMove > @rate
 
-    @tetromino.fall()
     @checkCollisions()
+    @tetromino.fall()
     @lastMove = new Date().getTime()
 
   checkCollisions: =>
@@ -30,6 +29,8 @@ class Tetris.Game.Game
 
   handleInput: (move) =>
     console.log "Handle input #{move}"
+    return unless @tetromino
+    previousPos = [@tetromino.x, @tetromino.y]
     switch move
       when 'left'
         @tetromino.moveLeft()
@@ -41,6 +42,17 @@ class Tetris.Game.Game
         @tetromino.fall()
       else
         console.log "Unknown move #{move}"
+    if @illegalTetrominoPosition()
+      @tetromino.x = previousPos[0]
+      @tetromino.y = previousPos[1]
+
+  illegalTetrominoPosition: ->
+    return false unless @tetromino
+    for y in [0..@tetromino.shape.length - 1]
+      for x in [0..@tetromino.shape[y].length - 1]
+        if @tetromino.shape[y][x] != 0 and @playfield.rows[@tetromino.y + y][@tetromino.x + x] != 0
+          return true
+    false
 
   #Engine interface
   executeActions: ->
